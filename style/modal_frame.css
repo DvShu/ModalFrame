@@ -1,0 +1,19 @@
+/* 对话框最外层(背景)样式 */
+.modal_frame_dialog_bg{
+    background-color: grey; /* 背景颜色半透明 */
+    opacity: 0.5;
+    width: 100vw; /* 宽度为视窗的宽度 */
+    height: 100vh; /* 高度为视窗的高度 */
+    position: fixed; /* 设置定位为fixed,相对于body */
+    top: 0;
+    z-index: 100; /* 设置悬浮在最上面 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    display: none;
+}
+
+/* 对话框内容主体部分布局 */
+.modal_frame_dialog_bg .modal_frame_dialog_container{
+    background-color: white;
+    padding: 10px;
+}
