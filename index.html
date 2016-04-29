@@ -15,40 +15,59 @@
     <!-- 模态框js -->
     <script src="js/modal_frame.js"></script>
     <script>
-        $(function(){
-
-            ModalFrame.tips({selector:"#tips"});
-            ModalFrame.tips({selector:"#button"});
-
-        });
 
         function dialog(){
+
             ModalFrame.dialog({
-                id : "#dialog", // 需要弹出的对话框的id
-                style : {height : "100px"}, // 自定义的内容部分的样式属性
-                /*theme : 设置为0,则使用提供的默认的主题,
-                如果设置为1,则使用自定义的样式,需要自己手动添加样式到标签的class属性
-                 系统默认theme为0,如果不配置theme,则默认为0 */
-                theme : 0
+                content : "#dg", // 需要弹出的对话框的id
+                cancelButton : "button" // 绑定取消按钮,自动实现点击该按钮后,隐藏对话框
             });
         }
+
+        function alert(){
+            ModalFrame.alert({content:"test"});
+        }
+
+        // 弹出加载框
+        function loading(){
+            ModalFrame.loading({
+                shadowCancel : true
+            }); // 弹出加载框
+        }
+
     </script>
 
 </head>
 <body>
-    <label id="tips">测试</label>
-    <button id="button">按钮</button>
+    <button onclick="alert();">alert</button>
 
     <div>
         <button onclick="dialog();">弹出对话框</button>
     </div>
 
-    <div id="dialog" style="display: none">
-        <div>
-            <input id="username" placeholder="用户名"><br>
-            <input id="password" placeholder="密码"><br>
-            <button id="btn">登录</button>
+    <div>
+        <button onclick="loading();">加载框</button>
+    </div>
+<!--  -->
+    <div id="dg" class="modal_frame_dialog_box" style="display: none">
+        <!-- 遮罩层 -->
+        <div class="shade"></div>
+        <!-- 主体层 -->
+        <div class="main">
+            <!-- 内容区域实现,单元格[实现内容垂直居中] -->
+            <div class="section">
+                <!-- 实现弹出框的宽度,并且水平居中 -->
+                <div class="child">
+                    <!-- 标题 -->
+                    <h3 class="title">信息提示</h3>
+                    <!-- 主体内容部分 -->
+                    <div class="content">
+                        <button id="btn_cancel">取消</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
 </body>
 </html>

@@ -1,19 +1,100 @@
-/* 对话框最外层(背景)样式 */
-.modal_frame_dialog_bg{
-    background-color: grey; /* 背景颜色半透明 */
-    opacity: 0.5;
-    width: 100vw; /* 宽度为视窗的宽度 */
-    height: 100vh; /* 高度为视窗的高度 */
-    position: fixed; /* 设置定位为fixed,相对于body */
-    top: 0;
+/* 对话框最外层(背景)盒子容器样式 */
+.modal_frame_dialog_box{
+    position: relative;
     z-index: 100; /* 设置悬浮在最上面 */
-    justify-content: center; /* 水平居中 */
-    align-items: center; /* 垂直居中 */
-    display: none;
+}
+/* 遮罩层和主体层的公有样式,宽高定位 */
+.modal_frame_dialog_box .shade, .main{
+    position:fixed;left:0;top:0;width:100%;height:100%
+}
+/* 遮罩层,设置半透明背景 */
+.modal_frame_dialog_box .shade{
+    background-color: rgba(0,0,0,.5);
+}
+/* 主体层 */
+.modal_frame_dialog_box .main{
+    display: table; /* 以表格的形式显示,方便子内容,垂直居中实现 */
+    font-family: Helvetica, arial, sans-serif;
+}
+.modal_frame_dialog_box .main .section{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+.modal_frame_dialog_box .main .section .child{
+    max-width: 90%;
+    min-width: 150px;
+    background-color: #fff;
+    font-size: 14px;
+    box-shadow: 0 0 8px rgba(0,0,0,.1);
+    border-radius: 5px;
+    display: inline-block; /* 宽度按最小宽和最大宽指定,并且水平居中 */
+    position: relative;
+    *zoom:1; /* 激活IE6、7的haslayout属性，让它读懂Alpha */
+}
+/* 标题栏 */
+.modal_frame_dialog_box .main .section .child .title{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    font-weight: normal;
+    border-radius: 3px 3px 0 0;
+    background-color: aquamarine;
+    margin: 0;
+}
+/* 内容部分 */
+.modal_frame_dialog_box .main .section .child .content{
+    padding: 20px 15px;
+    text-align: center;
+}
+/* 按钮样式 */
+.modal_frame_dialog_box .main .modal_frame_button{
+    border-radius:5px;
+    color:white;
+    border:0;
+    font-weight:bold;
+    padding:8px 25px;
+    background-color: #80caec;
+    color: #FFFFFF;
+    margin-top: 10px;
+}
+.modal_frame_dialog_box .main .modal_frame_button:active{
+    background-color: #67bde4;
 }
 
-/* 对话框内容主体部分布局 */
-.modal_frame_dialog_bg .modal_frame_dialog_container{
-    background-color: white;
-    padding: 10px;
+/* 加载动画弹出框 */
+.modal_frame_dialog_box .circle_loading_frames{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background-color: orange;
+    animation: loading0 1s linear 0s infinite alternate;
+    -moz-animation: loading0 1s linear 0s infinite alternate;	/* Firefox */
+    -webkit-animation: loading0 1s linear 0s infinite alternate;	/* Safari 和 Chrome */
+    -o-animation: loading0 1s linear 0s infinite alternate;	/* Opera */
+}
+
+/* 简单的加载动画 */
+@keyframes loading0 {
+    0%  {transform: scale(1, 1);}
+    50% {transform: scale(0.5, 0.5);}
+    100% {transform: scale(0, 0);}
+}
+@-moz-keyframes loading0 {/* Firefox */
+    0%  {transform: scale(1, 1);}
+    50% {transform: scale(0.5, 0.5);}
+    100% {transform: scale(0, 0);}
+}
+@-webkit-keyframes loading0 { /* Safari 和 Chrome */
+    0%  {transform: scale(1, 1);}
+    50% {transform: scale(0.5, 0.5);}
+    100% {transform: scale(0, 0);}
+}
+@-o-keyframes loading0 { /* Opera */
+    0%  {transform: scale(1, 1);}
+    50% {transform: scale(0.5, 0.5);}
+    100% {transform: scale(0, 0);}
 }
