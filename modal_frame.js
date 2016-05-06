@@ -31,11 +31,11 @@ var ModalFrame = {
                     // 遍历JSON获取,key -- value
                     for(var key in item){
                         var t = $(key);
-                        if(t){
+                        if(t && t.length > 0){
                             if(t[0].tagName == 'INPUT'){
-                                $(key).val(item[key]);
+                                t.val(item[key]);
                             } else {
-                                $(key).text(item[key]);
+                                t.text(item[key]);
                             }
                         }
                     }
@@ -114,3 +114,52 @@ var ModalFrame = {
     }
 
 };
+// 动态加载资源文件
+;(function(URI){
+    var node, arr, i = 0, src, dir, styles, href, el, lnode,
+        doc = document,
+        scripts = doc.getElementsByTagName('script'), // 获取所有的<script>节点列表
+        re = /.(modal_frame|modal_frame.min){1}.js/ ; // 匹配引入a.js的正则表达式
+    // 遍历每一个<script>节点,如果匹配到引入的a.js或者a.min.js则跳出循环
+    while(i < scripts.length){
+        node = scripts[i]; // <script>节点
+        if(node.hasAttribute("src")){
+            arr = node.src.match(re); // 判断<script>的引入的src是否匹配规则,匹配则获取src,否则返回null
+            if(arr){
+                src = node.src; // 获取引入节点的src
+                break; // 跳出循环
+            }
+        }
+        i++;
+    }
+    // 如果已经引入了指定的src
+    if(arr){
+        dir = src.substr(0, src.indexOf(arr[0])) + "/"; // 获取引入的js的公共路径部分
+        dir = dir + "modal_frame.css"; // 获取样式表路径
+        // 判断是否引入了相应的样式表
+        styles = doc.getElementsByTagName("link");
+        arr = false;
+        // 遍历所有引入的样式节点
+        for(var k = 0; k < styles.length; k ++){
+            lnode = styles[k];
+            if(lnode.hasAttribute("href")){
+                href = lnode.getAttribute("href"); // 获取引入的样式表的href
+                src = node.getAttribute("src");
+                src = src.substr(0, src.lastIndexOf("/") + 1) + "modal_frame.css";
+                if(href == dir || href == src){ // 已经引入的样式表
+                    arr = true; // 标记已经引入样式表
+                    break; // 直接跳出循环
+                }
+            }
+        }
+        // 判断是否需要引入样式表
+        if(!arr){ // 需要引入样式表
+            // 创建样式节点
+            el = doc.createElement("link");
+            el.rel = "stylesheet";
+            el.href = dir;
+            // 在引入的js文件之前插入样式节点
+            node.parentNode.insertBefore(el, node);
+        }
+    }
+})($._VALIDATOR_URI);

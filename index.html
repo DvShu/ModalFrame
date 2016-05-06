@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>模态框(对话框)</title>
-    <link rel="stylesheet" type="text/css" href="style/modal_frame.css"/>
     <style>
         body{
             padding: 0;
@@ -13,14 +12,19 @@
     <!-- 引入jquery -->
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <!-- 模态框js -->
-    <script src="js/modal_frame.js"></script>
+    <script src="modal_frame.js"></script>
     <script>
 
         function dialog(){
 
             ModalFrame.dialog({
                 content : "#dg", // 需要弹出的对话框的id
-                cancelButton : "button" // 绑定取消按钮,自动实现点击该按钮后,隐藏对话框
+                cancelButton : "button", // 绑定取消按钮,自动实现点击该按钮后,隐藏对话框
+                initShow : [{
+                    "#name" : "lisi",
+                    "#password" : "123456"
+                }] // 显示的时候,用于初始化显示的内容,会自动判断'#name' -- 选择器, 'lisi' -- 初始化的值
+                // 会自动判断给定的选择器如果是input,则更新value值,否则更新text()值。
             });
         }
 
@@ -30,9 +34,7 @@
 
         // 弹出加载框
         function loading(){
-            ModalFrame.loading({
-                shadowCancel : true
-            }); // 弹出加载框
+            ModalFrame.loading({shadowCancel : true}); // 弹出加载框
         }
 
     </script>
