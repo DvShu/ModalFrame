@@ -1,5 +1,10 @@
 # ModalFrame
 javascript弹出框插件,依赖于jquery。
+## 使用
+只需要将js和css文件拷贝到工程里面(切记js和css文件必须的在同一个文件夹下)，然后只需要直接引入js文件就行了,当引入js文件后会自动判断如果没有引入css文件,则动态引入css文件。
+```javascript
+  <script src="modal_frame.js"></script>
+```
 ## 实现内容
 ### alert(用于替换原生js的alert)
 ```javascript
